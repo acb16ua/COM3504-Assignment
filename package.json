@@ -18,6 +18,7 @@
     "jquery": "^3.3.1",
     "popper.js": "^1.14.7",
     "bootstrap": "^4.3.1",
-    "fs-extra": "^7.0.1"
+    "fs-extra": "^7.0.1",
+    "passport-local": "^1.0.0"
   }
 }
