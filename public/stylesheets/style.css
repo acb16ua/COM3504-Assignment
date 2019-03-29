@@ -5,7 +5,7 @@ html {
   background-image: url("/images/background.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100%;
+  height: auto;
 }
 
 body {
@@ -18,18 +18,35 @@ body {
 a {
   color: #00B7FF;
 }
-
+.jumbotron{
+  margin: 0px;
+}
 .card{
-  height: 370px;
+  height: auto;
   margin-top: auto;
   margin-bottom: auto;
-  width: 400px;
+  width: 90%;
   background-color: rgba(0,0,0,0.2) !important;
+}
+
+.card-login{
+  height: 370px;
+  width: 400px;
 }
 
 .card-header-text {
   padding: 0px;
   margin: 0px;
+}
+
+.profile_images{
+  background: darkred;
+  padding: 20px;
+}
+
+.thumb_images{
+  padding-bottom: 10px;
+  padding-top: 10px;
 }
 
 input:focus{
