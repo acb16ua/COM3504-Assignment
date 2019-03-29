@@ -21,6 +21,10 @@ a {
 .jumbotron{
   margin: 0px;
 }
+
+.search{
+  margin-left: 5%;
+}
 .card{
   height: auto;
   margin-top: auto;

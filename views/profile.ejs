@@ -20,21 +20,35 @@
 
 <!--Profile container-->
 <div class="container">
+    <div lass="d-flex justify-content-center h-100">
+        <nav class="search card navbar navbar-light bg-light">
+
+                <form class="form-inline flex-nowrap bg-light mx-0 mx-lg-auto rounded p-1">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+        </nav>
+    </div>
     <div class="d-flex justify-content-center h-100">
         <div class="card">
             <!--Profile header-->
             <div class="jumbotron">
                 <center>
-                    <a href="#aboutModal" data-toggle="modal" data-target="#myModal"><img
+                    <a href="#profileModal" data-toggle="modal" data-target="#profileModal"><img
                                 src="/images/default_profile.jpg" name="profileinfo" width="220" height="140"
                                 class="rounded-circle"></a>
                     <h3>User name</h3>
-                    <em>User subtitle</em>
+                    <em>User subtitle</em><br><br>
+                    <a href="#addPhoto" data-toggle="modal" data-target="#addPhoto">
+                    <button type="button" class="add" data-dismiss="modal" aria-label="Add">
+                        <span aria-hidden="true">+</span>
+                    </button>
+                    </a>
                 </center>
             </div>
 
             <!-- Profile Modal -->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -103,6 +117,54 @@
                                         <hr class="mb-4">
                                         <button class="btn btn-primary btn-lg btn-block" type="submit">Save changes
                                         </button>
+                                    </form>
+                                </div>
+                                <br>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Add photo Modal -->
+            <div class="modal fade" id="addPhoto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Upload Image</h2>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                                <div class="col-md-8 order-md-1">
+                                    <form class="needs-validation" novalidate="" action="/upload" method="post" enctype="multipart/form-data">
+                                            <input type="file" accept="image/*" name="photo" >
+
+                                        <br>
+                                        <br>
+
+                                        <div class="mb-3">
+                                            <label for="eventName">Event name: </label>
+                                            <input type="eventName" class="form-control" id="eventName"
+                                                   placeholder="What event is in the photo?">
+                                            <div class="invalid-feedback">
+                                                Please enter a valid event.
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="comment">Comment: </label>
+                                            <input type="comment" class="form-control" id="comment"
+                                                   placeholder="Having a great time!">
+                                            <div class="invalid-feedback">
+                                                Please enter a valid comment.
+                                            </div>
+                                        </div>
+                                        <hr class="mb-4">
+                                        <button class="btn btn-primary btn-lg btn-block" type="submit" value="upload">Add Event Photo</button>
+
                                     </form>
                                 </div>
                                 <br>
@@ -183,6 +245,7 @@
     <!--Local area posts-->
     <div class="d-flex justify-content-center h-100">
         <div class="profile_images card">
+            <h5 class="card-title" style="color: white">Discover more...</h5>
 
             <div class="row">
                 <div class="thumb_images col-md-4">
