@@ -64,45 +64,62 @@ self.addEventListener('activate', function (e) {
  *      from there (e.g. showing the cached data)
  * all the other pages are searched for in the cache. If not found, they are returned
  */
-self.addEventListener('fetch', function (e) {
+
+
+
+//
+// self.addEventListener('fetch', e => {
+//     e.respondWith(
+//         caches.open(cacheName).then(cache => {
+//                 return cache.match(e.request).then(response => {
+//                     return response || fetch(e.request)
+//                         .then(response => {
+//                             const responseClone = response.clone();
+//                             cache.put(e.request, responseClone);
+//                         })
+//                 })
+//             }
+//         ));
+// });
+
+
+
+
+// self.addEventListener('fetch', function (e) {
+//     console.log('[Service Worker] Fetch', e.request.url);
+//
+//     /*
+//      * The app is asking for app shell files. In this scenario the app uses the
+//      * "Cache, falling back to the network" offline strategy:
+//      * https://jakearchibald.com/2014/offline-cookbook/#cache-falling-back-to-network
+//      */
+//     e.respondWith(
+//         caches.match(e.request).then(function (response) {
+//             return response
+//                 || fetch(e.request)
+//                     .then(function (response) {
+//                         // note if network error happens, fetch does not return
+//                         // an error. it just returns response not ok
+//                         // https://www.tjvantoll.com/2015/09/13/fetch-and-errors/
+//                         if (!response.ok) {
+//                             console.log("error: " + err);
+//                         }
+//                     })
+//                     .catch(function (e) {
+//                         console.log("error: " + err);
+//                     })
+//         })
+//     );
+//
+// });
+//
+//
+//
+self.addEventListener('fetch', function(e) {
     console.log('[Service Worker] Fetch', e.request.url);
-    var dataUrl = '/weather_data';
-    //if the request is '/weather_data', post to the server
-    if (e.request.url.indexOf(dataUrl) > -1) {
-        /*
-         * When the request URL contains dataUrl, the app is asking for fresh
-         * weather data. In this case, the service worker always goes to the
-         * network and then caches the response. This is called the "Cache then
-         * network" strategy:
-         * https://jakearchibald.com/2014/offline-cookbook/#cache-then-network
-         */
-        return fetch(e.request).then(function (response) {
-            // note: it the network is down, response will contain the error
-            // that will be passed to Ajax
-            return response;
+    e.respondWith(
+        fetch(e.request).catch(function() {
+            return caches.match(e.request);
         })
-    } else {
-        /*
-         * The app is asking for app shell files. In this scenario the app uses the
-         * "Cache, falling back to the network" offline strategy:
-         * https://jakearchibald.com/2014/offline-cookbook/#cache-falling-back-to-network
-         */
-        e.respondWith(
-            caches.match(e.request).then(function (response) {
-                return response
-                    || fetch(e.request)
-                        .then(function (response) {
-                            // note if network error happens, fetch does not return
-                            // an error. it just returns response not ok
-                            // https://www.tjvantoll.com/2015/09/13/fetch-and-errors/
-                            if (!response.ok) {
-                                console.log("error: " + err);
-                            }
-                        })
-                        .catch(function (e) {
-                            console.log("error: " + err);
-                        })
-            })
-        );
-    }
+    );
 });
