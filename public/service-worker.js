@@ -1,13 +1,14 @@
 var dataCacheName = 'snipedData-v1';
-var cacheName = 'sniped-step-8-1';
+var cacheName = 'sniped';
 var filesToCache = [
     '/',
-    '/scripts/app.js',
-    '/styles/inline.css',
-    '/styles/bootstrap.min.css',
-    '/scripts/bootstrap.min.js',
-    '/scripts/jquery.min.js',
-    '/scripts/database.js',
+    '/javascripts/app.js',
+    '/javascripts/bootstrap.js',
+    '/javascripts/jquery-3.3.1.js',
+    '/javascripts/index.js',
+    '/stylesheets/style.css',
+    '/stylesheets/bootstrap.css',
+    '/stylesheets/fontawesome.css',
 ];
 
 
