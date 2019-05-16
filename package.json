@@ -19,6 +19,7 @@
     "http-errors": "~1.6.2",
     "idb": "^4.0.3",
     "jquery": "^3.4.1",
+    "leaflet": "^1.5.1",
     "mongoose": "^5.5.8",
     "morgan": "~1.9.0",
     "multer": "^1.4.1",
