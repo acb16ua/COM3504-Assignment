@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+var assert = require('assert');
 
 const multer = require('multer');
 
@@ -34,21 +34,16 @@ var upload = multer({storage: storage});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Sniped!', login_is_correct: true });
+  res.render('index', { title: 'Sniped!' });
 });
 
 
-
-
-/* GET profile page. */
-router.get('/profile', function(req, res, next) {
-    res.render('profile', { title: 'Welcome back!', login_is_correct: true });
-    if (req.user) {
-        console.log("hello")
-    } else {
-        console.log("hello2")
-    }
+router.get('/profile', function(req, res){
+    var message = req.session.user;
+    console.log(message);
+    res.render('profile', { user: req.user, title: 'Welcome back!'});
 });
+
 
 /* POST event image. */
 router.post('/upload', upload.single('photo'), (req, res, next) => {
@@ -56,8 +51,7 @@ router.post('/upload', upload.single('photo'), (req, res, next) => {
         assert.equal(null, err);
         console.log("Connected successfully to server");
         const db = client.db(dbName);
-        insertDocuments(db, 'public/uploads/' + req.file.filename, () => {
-            client.close();
+        insertDocuments(db, ('public/uploads/' + req.file.filename +'.jpg'), () => {
             res.json({'message': 'File uploaded successfully'});
         });
     });

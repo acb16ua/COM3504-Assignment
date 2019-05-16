@@ -9,9 +9,12 @@ module.exports = app => {
     );
 
     app.get('/auth/google/callback', passport.authenticate('google', {
-        failureRedirect: '/',
-        successRedirect: '/profile'
-    }));
+        'failureRedirect': '/',
+        'session': true
+    }), (req, res)=>{ req.session.user = req.user;res.redirect("/profile"); });
+
+
+
 
     app.get('/api/logout', (req, res) => {
         req.logout();
@@ -20,5 +23,6 @@ module.exports = app => {
 
     app.get('/api/current_user', (req, res) => {
         res.send(req.user);
+
     });
 };
