@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var passport = require('passport');
-var Strategy = require('passport-local').Strategy;
+
+
 const multer = require('multer');
-var assert = require('assert')
+
 
 /* Adds mongodb package */
 const MongoClient = require('mongodb').MongoClient;
@@ -37,17 +37,17 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Sniped!', login_is_correct: true });
 });
 
-/* POST login info. */
-router.post('/', function (req, res, next) {
-  var login = req.body.login;
-  var password = req.body.password;
 
-});
 
 
 /* GET profile page. */
 router.get('/profile', function(req, res, next) {
     res.render('profile', { title: 'Welcome back!', login_is_correct: true });
+    if (req.user) {
+        console.log("hello")
+    } else {
+        console.log("hello2")
+    }
 });
 
 /* POST event image. */
@@ -55,7 +55,7 @@ router.post('/upload', upload.single('photo'), (req, res, next) => {
     client.connect(function(err) {
         assert.equal(null, err);
         console.log("Connected successfully to server");
-         const db = client.db(dbName);
+        const db = client.db(dbName);
         insertDocuments(db, 'public/uploads/' + req.file.filename, () => {
             client.close();
             res.json({'message': 'File uploaded successfully'});
@@ -74,6 +74,4 @@ const insertDocuments = function(db,filePath, callback) {
         callback(result);
     });
 }
-
-
 
