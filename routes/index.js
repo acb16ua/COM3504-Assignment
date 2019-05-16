@@ -69,3 +69,14 @@ const insertDocuments = function(db,filePath, callback) {
     });
 }
 
+
+/* GET profile page. */
+router.get('/map_test', function(req, res, next) {
+    res.render('map_test', { title: 'MAPSMAPSMAPS', login_is_correct: true });
+});
+
+/* GET profile page. */
+router.get('/map_location', function(req, res, next) {
+    res.render('map_location', { title: 'MAPSMAPSMAPS', login_is_correct: true });
+});
+
