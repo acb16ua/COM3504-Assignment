@@ -7,7 +7,6 @@
 
     <title><%= title %></title>
 
-
     <style>
         .pac-container {
             z-index: 10000 !important;
@@ -52,7 +51,12 @@
     <meta name="msapplication-TileColor" content="#2F3BA2">
 
 </head>
-<body onload="initSniped()">
+
+
+   <textarea rows="4" cols="50" type="text" name="array_of_people" id="array_of_people" style="display: none;">
+       <%=results%>
+   </textarea>
+<body onload="initIndexSniped()">
 
 
 <!--Profile container-->
@@ -60,7 +64,7 @@
     <div lass="d-flex justify-content-center h-100">
         <nav class="search card navbar navbar-light bg-light">
 
-                <form class="form-inline flex-nowrap bg-light mx-0 mx-lg-auto rounded p-1"action="/profile" method="post">
+                <form class="form-inline flex-nowrap bg-light mx-0 mx-lg-auto rounded p-1"action="/profile" method="POST">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" name="searchInput" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
@@ -193,7 +197,7 @@
 
                                         <div class="mb-3">
                                             <label for="eventName">Event name: </label>
-                                            <input type="eventName" class="form-control" id="eventName"
+                                            <input type="eventName" class="form-control" id="eventName" name="eventName"
                                                    placeholder="What event is in the photo?">
                                             <div class="invalid-feedback">
                                                 Please enter a valid event.
@@ -202,7 +206,7 @@
                                         <div class="mb-3" id="locationField">
                                             <label>Event location: </label>
                                             <div class="pac-container" >
-                                            <input class="form-control" id="autocomplete"
+                                            <input class="form-control" id="autocomplete" name="location"
                                                    placeholder="City/Country" type="text"/>
 <!--                                                onFocus="geolocate()"-->
                                             </div>
@@ -210,12 +214,12 @@
                                         <div class="mb-3" style="margin-top: 55px;">
                                             <label for="comment">Comment: </label>
 
-                                            <input type="comment" class="form-control" id="comment"
+                                            <input type="comment" class="form-control" id="comment"  name="comment"
                                                    placeholder="Having a great time!">
 
                                         </div>
                                         <hr class="mb-4">
-                                        <button class="btn btn-primary btn-lg btn-block" type="submit" value="upload">Add Event Photo</button>
+                                        <button class="btn btn-primary btn-lg btn-block" type="submit" value="upload" target="_blank">Add Event Photo</button>
 
                                     </form>
                                 </div>
@@ -673,10 +677,14 @@
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDO7vtBDfFw_GLTR7JVQFT1CP0eUyO6Uk&libraries=places&callback=initialise"></script>
 
 
+
+
+
 <script src="javascripts/index.js"></script>
 <script src="javascripts/jquery-3.3.1.js"></script>
 <script src="javascripts/bootstrap.js"></script>
 <script src="javascripts/app.js"></script>
+
 
 </body>
 </html>
