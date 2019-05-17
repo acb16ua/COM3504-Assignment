@@ -38,10 +38,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Sniped!' });
 });
 
-
-
-
-function resturnImagesProfileID(ProfileID) {
+function searchMongoToIndex(eventSearch) {
 
 
     /* Adds mongodb package */
@@ -57,18 +54,71 @@ function resturnImagesProfileID(ProfileID) {
 // Create a new MongoClient
     const client = new MongoClient(url);
     client.connect(function(err) {
+        if (err) {
+            // handle errors
+        } else {
+            // use db here
+
+            const db = client.db(dbName);
+            const collection = db.collection('upload');
+            // existingUser = collection.find({profileID:ProfileID})
+            var eventName = eventSearch;
+
+            collection.find({'event':new RegExp(eventName)}).toArray(function(err, result) {
+                if (err){ throw err}else{
+                    //console.log(result);
+
+                    // Result is the ouput of the search term for events
+                };
+
+
+            });
+
+        };
+    });
+
+    // The function returns the product of p1 and p2
+};
+
+
+function userProfileMongoToIndex(ProfileID) {
+
+
+    /* Adds mongodb package */
+    const MongoClient = require('mongodb').MongoClient;
+
+// Connection URL
+    const url = 'mongodb://localhost:27017';
+
+// Database Name
+    const dbName = 'com3504';
+
+
+// Create a new MongoClient
+    const client = new MongoClient(url);
+    client.connect(function(err) {
+        if (err) {
+            // handle errors
+        } else {
+            // use db here
+
         const db = client.db(dbName);
         const collection = db.collection('upload');
         // existingUser = collection.find({profileID:ProfileID})
         var userName = ProfileID;
 
         collection.find({'profileID':userName}).toArray(function(err, result) {
-            if (err) throw err;
-            return result;
+            if (err){ throw err}else{
+                //console.log(result);
+
+                // Result is an array of json. add it to indexdb.
+
+            };
+
 
         });
 
-
+    };
     });
 
        // The function returns the product of p1 and p2
@@ -81,7 +131,8 @@ router.post('/logout', (req, res) => {
 });
 
 router.get('/profile', function(req, res){
-    console.log(resturnImagesProfileID("109272662587431712473"));
+    userProfileMongoToIndex("109272662587431712473");
+    searchMongoToIndex("glasto");
     if(req.session.user == null){res.redirect("/");};
     console.log(req.session.profileID);
     profileID = req.session.user;
