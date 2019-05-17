@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var assert = require('assert');
-
+var profileID ="";
 const multer = require('multer');
 
 
@@ -34,14 +34,23 @@ var upload = multer({storage: storage});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+    if(req.session.user != null){res.redirect("/profile");};
   res.render('index', { title: 'Sniped!' });
 });
 
+router.post('/logout', (req, res) => {
+    req.logout();
+    req.session.user = null
+    res.redirect("/");
+});
 
 router.get('/profile', function(req, res){
-    var message = req.session.user;
-    console.log(message);
-    res.render('profile', { user: req.user, title: 'Welcome back!'});
+
+    if(req.session.user == null){res.redirect("/");};
+    console.log(req.session.profileID);
+    profileID = req.session.user;
+
+    res.render('profile', { user: req.user, title: 'Welcome back!',DisplayName:profileID.displayName});
 });
 
 
@@ -63,7 +72,7 @@ const insertDocuments = function(db,filePath, callback) {
     // Get the documents collection
     const collection = db.collection('upload');
     // Insert some documents
-    collection.insertOne({'imagePath':filePath}, function(err, result) {
+    collection.insertOne({'imagePath':filePath, 'profileID': profileID.profileID}, function(err, result) {
         assert.equal(err, null);
         callback(result);
     });

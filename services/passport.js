@@ -55,11 +55,12 @@ client.connect(function(err) {
                         // we already have a record with the given profile ID
                         done(null, existingUser);
                     } else {
-                        collection.insertOne({profileID: profile.id }, function(err, res) {
+
+                        collection.insertOne({profileID: profile.id, displayName: profile.displayName}, function(err, res) {
                             if (err) throw err;
 
                         });
-                        done(null, {profileID: profile.id });
+                        done(null, {profileID: profile.id, displayName: profile.displayName});
 
                     }
                 });
