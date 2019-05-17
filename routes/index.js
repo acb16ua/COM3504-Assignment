@@ -50,7 +50,7 @@ router.get('/profile', function(req, res){
     console.log(req.session.profileID);
     profileID = req.session.user;
 
-    res.render('profile', { user: req.user, title: 'Welcome back!',DisplayName:profileID.displayName});
+    res.render('profile', { user: req.user, title: 'Welcome back!',DisplayName:profileID.displayName,image :profileID.Image});
 });
 
 

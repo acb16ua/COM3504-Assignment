@@ -52,15 +52,16 @@ client.connect(function(err) {
             (accessToken, refreshToken, profile, done) => {
                 collection.findOne({ profileID: profile.id }).then(existingUser => {
                     if (existingUser) {
+
                         // we already have a record with the given profile ID
                         done(null, existingUser);
                     } else {
 
-                        collection.insertOne({profileID: profile.id, displayName: profile.displayName}, function(err, res) {
+                        collection.insertOne({profileID: profile.id, displayName: profile.displayName,Image:profile._json['picture']}, function(err, res) {
                             if (err) throw err;
 
                         });
-                        done(null, {profileID: profile.id, displayName: profile.displayName});
+                        done(null, {profileID: profile.id, displayName: profile.displayName,Image:profile._json['picture']});
 
                     }
                 });
