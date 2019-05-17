@@ -9,9 +9,9 @@ var session  = require('express-session');
 
 function Setup(){
 
+    var userInital = [{"profileID":"115978702094341748649","displayName":"Philip D'Souza","Image":"https://lh5.googleusercontent.com/-5yDWdV1Drf0/AAAAAAAAAAI/AAAAAAAABF4/wUNGr8NntlU/photo.jpg"}]
 
-
-    var json1 = [
+    var imagesInital = [
         {"imagePath":"public/uploads/photo-1558014347932.jpg","profileID":"109272662587431712473","event":"Glasto","comment":"This is glasto","location":"","dateTime":"06/12/9412:15"},
         {"imagePath":"public/uploads/photo-1558014355718.jpg","profileID":"109272662587431712473","event":"Cohella","comment":"This is Cohella","location":"","dateTime":"06/12/9412:15"},
         {"imagePath":"public/uploads/photo-1558014361498.jpg","profileID":"109272662587431712473","event":"Leeds fest","comment":"This is Leeds fest","location":"","dateTime":"06/12/9412:15"},
@@ -50,14 +50,17 @@ function Setup(){
         const db = client.db(dbName);
         const collection = db.collection('upload');
 
-        collection.findOne( json1[0] ).then(existingUser => {
+        collection.findOne( imagesInital[0] ).then(existingUser => {
             if (existingUser) {
                 // we already have a record with the given profile ID
                 console.log("Already inital")
             } else {
-                collection.insert(json1 , function(err, res) {
+                collection.insert(imagesInital , function(err, res) {
             if (err) throw err;
-
+            const collection = db.collection('Users');
+                    collection.insert(userInital , function(err, res) {
+                    if (err) throw err;
+                });
             });
 
             };
