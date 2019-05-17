@@ -66,7 +66,7 @@ function searchMongoToIndex(eventSearch) {
 
             collection.find({'event':new RegExp(eventName)}).toArray(function(err, result) {
                 if (err){ throw err}else{
-                    //console.log(result);
+                    console.log(result);
 
                     // Result is the ouput of the search term for events
                 };
@@ -132,15 +132,47 @@ router.post('/logout', (req, res) => {
 
 router.get('/profile', function(req, res){
     userProfileMongoToIndex("109272662587431712473");
-    searchMongoToIndex("glasto");
     if(req.session.user == null){res.redirect("/");};
     console.log(req.session.profileID);
     profileID = req.session.user;
+    console.log(profileID.Image);
 
-    res.render('profile', { user: req.user, title: 'Welcome back!',DisplayName:profileID.displayName,image :profileID.Image});
+    res.render('profile', { user: req.user, title: 'Welcome back!',DisplayName:profileID.displayName,image : profileID.Image, searchPhotos:""});
+
 });
 
+router.post('/profile', function(req, res) {
 
+    searchMongoToIndex(req.body.searchInput.toLowerCase());
+    //get indeximages from indexed db
+    test = [{"imagePath":"public/uploads/photo-1558014347932.jpg","profileID":"109272662587431712473","event":"glasto","comment":"This is glasto","location":"","dateTime":"06/12/9412:15"}]
+    //update images
+    allPhotos = "";
+    // for each photo in array append it to html
+
+    test.forEach(function(obj) {console.log(obj.imagePath.slice(7).slice(0, -4));
+        var photos = "      <div class=\"thumb_images col-md-4\">\n" +
+            "\n" +
+            "                    <a href=\"#image1\" data-toggle=\"modal\" data-target=\"#image1\">\n" +
+            "                    <img class=\"card-img-top\"\n" +
+            "                         data-src=\"holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail\"\n" +
+            "                         alt=\"Thumbnail [100%x225]\" style=\"height: 225px; width: 100%; display: block;\"\n" +
+            "                         src=" +
+            "\"" +
+            "uploads/photo-1558014347932" +
+            "\"\n" +
+            "                         data-holder-rendered=\"true\"></a>\n" +
+            "\n" +
+            "                </div>\n";
+        allPhotos+= photos;
+    });
+
+
+    res.render('profile', {user: req.user, title: 'Welcome back!',DisplayName:profileID.displayName,image :profileID.Image, searchPhotos: allPhotos});
+
+
+
+});
 /* POST event image. */
 router.post('/upload', upload.single('photo'), (req, res, next) => {
     client.connect(function(err) {

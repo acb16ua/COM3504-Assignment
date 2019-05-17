@@ -60,8 +60,8 @@
     <div lass="d-flex justify-content-center h-100">
         <nav class="search card navbar navbar-light bg-light">
 
-                <form class="form-inline flex-nowrap bg-light mx-0 mx-lg-auto rounded p-1">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <form class="form-inline flex-nowrap bg-light mx-0 mx-lg-auto rounded p-1"action="/profile" method="post">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" name="searchInput" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
         </nav>
@@ -234,7 +234,9 @@
         <div class="profile_images card">
 
             <div class="row">
+                <%- searchPhotos %>
                 <div class="thumb_images col-md-4">
+
                     <a href="#image1" data-toggle="modal" data-target="#image1">
                     <img class="card-img-top"
                          data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail"
